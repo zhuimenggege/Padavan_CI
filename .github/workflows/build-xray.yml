@@ -29,7 +29,9 @@ jobs:
     - name: Clone&Build source code
       id: build
       run: |
-        git clone -b 1.5.0 https://github.com/xtls/xray-core.git xray-core
+        git clone https://github.com/xtls/xray-core.git xray-core
+        cd xray-core
+        git checkout a58e20c81119e2a46d8975c3123e18f5dd63821e
         cd xray-core/main
         #GOOS=linux GOARCH=mipsle go build -o ../../xraybin/xray
         GOOS=linux GOARCH=mipsle go build -o ../../xraybin/xray -trimpath -ldflags "-s -w -buildid=" ./
