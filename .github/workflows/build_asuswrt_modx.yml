@@ -1,4 +1,4 @@
-name: Build from Asuswrt-modx repo
+name: Build Asuswrt-Modx
 
 on:
   workflow_dispatch:
