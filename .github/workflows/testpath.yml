@@ -19,7 +19,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        mkdir /opt/brcm/bin
+        #mkdir /opt/brcm/bin
         echo '/opt/brcm/bin' >> "${GITHUB_PATH}"
         echo 'PATH=/usr/bin:/bin' >>"${GITHUB_ENV}"
         export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
