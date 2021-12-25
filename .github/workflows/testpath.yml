@@ -1,0 +1,24 @@
+name: Test Path
+
+on:
+  workflow_dispatch:
+env:
+  REPOSITORY_URL: https://github.com/stkuroneko/asuswrt-modx.git
+  WORK_PATH: /opt/asuswrt-modx
+  TIME_ZONE: Asia/Shanghai
+  FIRMWARE_PATH: /opt/firmwares
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        echo '/opt' >> "${GITHUB_PATH}"
+        echo 'PATH=/usr/bin:/bin' >>"${GITHUB_ENV}"
+        echo "$PATH"
