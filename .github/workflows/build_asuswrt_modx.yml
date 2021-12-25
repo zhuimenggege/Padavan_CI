@@ -59,22 +59,13 @@ jobs:
     - name: Clone source code
       run: |
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
-    - name: Extract build gcc
-      run: |
-        cd $WORK_PATH/tools
-        tar xjf buildroot-gcc463_32bits.tar.bz2
-    - name: Create gcc and brcm link
-      run: |
-        sudo ln -s $WORK_PATH/tools/brcm /opt/brcm
-        sudo ln -s $WORK_PATH/tools/buildroot-gcc463 /opt/buildroot-gcc463
     - name: Build
       run: |
-        export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
-        export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
-        export PATH=/opt/buildroot-gcc463/bin:$PATH
-        echo "$PATH"
-        cd $WORK_PATH/release/src-ra-5010
-        sudo make ${{ github.event.inputs.target }}
+        cd $WORK_PATH
+        cp -f bashScripts/asuswrt_build.sh $(pwd)
+        sudo chmod 777 ./asuswrt_build.sh
+        bash ./asuswrt_build.sh ${{ github.event.inputs.target }}
+        #sudo make ${{ github.event.inputs.target }}
     - name: Organize firmware files
       id: organize
       run: |
