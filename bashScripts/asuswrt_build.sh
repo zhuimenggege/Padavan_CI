@@ -23,9 +23,10 @@ fi
 if [ ! -h "/opt/buildroot-gcc463" ];then
 sudo ln -s $TOOLSDIR/buildroot-gcc463 /opt/buildroot-gcc463
 fi
-cd $ROOTDIR/release/src-ra-5010
 export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
 export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
 export PATH=/opt/buildroot-gcc463/bin:$PATH
-#mipsel-uclibc-gcc -v
+cd $ROOTDIR/release/src/router/libnfnetlink-1.0.1
+autoreconf -vfi
+cd $ROOTDIR/release/src-ra-5010
 make $1
