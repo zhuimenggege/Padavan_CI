@@ -67,13 +67,16 @@ jobs:
       run: |
         sudo ln -s $WORK_PATH/tools/brcm /opt/brcm
         sudo ln -s $WORK_PATH/tools/buildroot-gcc463 /opt/buildroot-gcc463
-    - name: Export PATH
+    #- name: Export PATH
+    #  run: |
+    #    export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
+    #    export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
+    #    export PATH=/opt/buildroot-gcc463/bin:$PATH
+    - name: Build
       run: |
         export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
         export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
         export PATH=/opt/buildroot-gcc463/bin:$PATH
-    - name: Build
-      run: |
         cd $WORK_PATH/release/src-ra-5010
         sudo make ${{ github.event.inputs.target }}
     - name: Organize firmware files
