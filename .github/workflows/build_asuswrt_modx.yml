@@ -74,13 +74,16 @@ jobs:
     #    export PATH=/opt/buildroot-gcc463/bin:$PATH
     - name: Build
       run: |
-        ls /opt
-        export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
-        export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
-        export PATH=/opt/buildroot-gcc463/bin:$PATH
-        echo PATH
-        #cd $WORK_PATH/release/src-ra-5010
-        #sudo make ${{ github.event.inputs.target }}
+        #ls /opt
+        cp -f bashScripts/asuswrtpath.sh $(pwd)
+        sudo chmod 777 ./asuswrtpath.sh
+        bash ./asuswrtpath.sh
+        #export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
+        #export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
+        #export PATH=/opt/buildroot-gcc463/bin:$PATH
+        #echo PATH
+        cd $WORK_PATH/release/src-ra-5010
+        sudo make ${{ github.event.inputs.target }}
     - name: Organize firmware files
       id: organize
       run: |
