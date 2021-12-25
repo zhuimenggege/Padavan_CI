@@ -76,9 +76,9 @@ jobs:
         #export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
         #export PATH=/opt/buildroot-gcc463/bin:$PATH
         #echo PATH
-        echo 'PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH' >>"${GITHUB_ENV}"
-        echo 'PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH' >>"${GITHUB_ENV}"
-        echo 'PATH=/opt/buildroot-gcc463/bin:$PATH' >>"${GITHUB_ENV}"
+        echo '/opt/brcm/hndtools-mipsel-linux/bin' >> "${GITHUB_PATH}"
+        echo '/opt/brcm/hndtools-mipsel-uclibc/bin' >> "${GITHUB_PATH}"
+        echo '/opt/buildroot-gcc463/bin' >> "${GITHUB_PATH}"
         echo "$PATH"
         #cd $WORK_PATH/release/src-ra-5010
         #sudo make ${{ github.event.inputs.target }}
