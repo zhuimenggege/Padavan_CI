@@ -61,10 +61,10 @@ jobs:
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
     - name: Build
       run: |
-        cd $WORK_PATH
-        cp -f bashScripts/asuswrt_build.sh $(pwd)
-        sudo chmod 777 ./asuswrt_build.sh
-        bash ./asuswrt_build.sh ${{ github.event.inputs.target }}
+        sudo cp -f bashScripts/asuswrt_build.sh $FIRMWARE_PATH/build.sh
+        cd $FIRMWARE_PATH
+        sudo chmod 777 ./build.sh
+        bash ./build.sh ${{ github.event.inputs.target }}
         #sudo make ${{ github.event.inputs.target }}
     - name: Organize firmware files
       id: organize
