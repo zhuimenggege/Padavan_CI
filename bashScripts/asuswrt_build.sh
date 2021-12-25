@@ -27,5 +27,5 @@ cd $ROOTDIR/release/src-ra-5010
 export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
 export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
 export PATH=/opt/buildroot-gcc463/bin:$PATH
-mipsel-uclibc-gcc -v
-#make $1
+#mipsel-uclibc-gcc -v
+make $1
