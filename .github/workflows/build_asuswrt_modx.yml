@@ -74,11 +74,13 @@ jobs:
     #    export PATH=/opt/buildroot-gcc463/bin:$PATH
     - name: Build
       run: |
+        ls /opt
         export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
         export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
         export PATH=/opt/buildroot-gcc463/bin:$PATH
-        cd $WORK_PATH/release/src-ra-5010
-        sudo make ${{ github.event.inputs.target }}
+        echo PATH
+        #cd $WORK_PATH/release/src-ra-5010
+        #sudo make ${{ github.event.inputs.target }}
     - name: Organize firmware files
       id: organize
       run: |
