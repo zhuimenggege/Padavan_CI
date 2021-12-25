@@ -45,17 +45,17 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/git-core-ubuntu-ppa-xenial.list
-        sudo add-apt-repository ppa:git-core/ppa
-        sudo dpkg --add-architecture i386
-        sudo apt-get update
-        sudo apt-get upgrade
-        sudo apt-get install libncurses5 libncurses5-dev m4 bison gawk flex libstdc++-4.8-dev g++-multilib g++ \
-        gengetopt git gitk zlib1g-dev autoconf autopoint libtool shtool autogen mtd-utils intltool sharutils \
-        docbook-xsl-* libstdc++5 texinfo dos2unix xsltproc binutils u-boot-tools device-tree-compiler python \
-        qemu gperf liblzo2-dev uuid-dev build-essential lzma-dev liblzma-dev lzma patch cmake intltool yodl yodl-doc \
-        libglib2.0-dev gtk-doc-tools libc6-i386 lib32stdc++6 lib32z1 libelf1:i386 lib32ncurses5 libc6-dev-i386 
-        sudo timedatectl set-timezone "$TIME_ZONE"
+        #sudo rm -rf /etc/apt/sources.list.d/git-core-ubuntu-ppa-xenial.list
+        #sudo add-apt-repository ppa:git-core/ppa
+        #sudo dpkg --add-architecture i386
+        #sudo apt-get update
+        #sudo apt-get upgrade
+        #sudo apt-get install libncurses5 libncurses5-dev m4 bison gawk flex libstdc++-4.8-dev g++-multilib g++ \
+        #gengetopt git gitk zlib1g-dev autoconf autopoint libtool shtool autogen mtd-utils intltool sharutils \
+        #docbook-xsl-* libstdc++5 texinfo dos2unix xsltproc binutils u-boot-tools device-tree-compiler python \
+        #qemu gperf liblzo2-dev uuid-dev build-essential lzma-dev liblzma-dev lzma patch cmake intltool yodl yodl-doc \
+        #libglib2.0-dev gtk-doc-tools libc6-i386 lib32stdc++6 lib32z1 libelf1:i386 lib32ncurses5 libc6-dev-i386 
+        #sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
@@ -67,23 +67,21 @@ jobs:
       run: |
         sudo ln -s $WORK_PATH/tools/brcm /opt/brcm
         sudo ln -s $WORK_PATH/tools/buildroot-gcc463 /opt/buildroot-gcc463
-    #- name: Export PATH
-    #  run: |
-    #    export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
-    #    export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
-    #    export PATH=/opt/buildroot-gcc463/bin:$PATH
     - name: Build
       run: |
-        #ls /opt
-        cp -f bashScripts/asuswrtpath.sh $(pwd)
-        sudo chmod 777 ./asuswrtpath.sh
-        bash ./asuswrtpath.sh
+        #cp -f bashScripts/asuswrtpath.sh $(pwd)
+        #sudo chmod 777 ./asuswrtpath.sh
+        #bash ./asuswrtpath.sh
         #export PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH
         #export PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH
         #export PATH=/opt/buildroot-gcc463/bin:$PATH
         #echo PATH
-        cd $WORK_PATH/release/src-ra-5010
-        sudo make ${{ github.event.inputs.target }}
+        echo 'PATH=/opt/brcm/hndtools-mipsel-linux/bin:$PATH' >>"${GITHUB_ENV}"
+        echo 'PATH=/opt/brcm/hndtools-mipsel-uclibc/bin:$PATH' >>"${GITHUB_ENV}"
+        echo 'PATH=/opt/buildroot-gcc463/bin:$PATH' >>"${GITHUB_ENV}"
+        echo "$PATH"
+        #cd $WORK_PATH/release/src-ra-5010
+        #sudo make ${{ github.event.inputs.target }}
     - name: Organize firmware files
       id: organize
       run: |
