@@ -24,6 +24,7 @@ on:
         - R6220
         - RT-AC85P
         - XY-C1
+        - GHL
       firmwarever:
         description: 'firmware''s version'
         required: true
