@@ -20,6 +20,9 @@ jobs:
       run: |
         cd /opt
         git clone https://vb1980:${{ secrets.PRIVREPOTOKEN }}@github.com/vb1980/k2p_supermesh.git
+        cd /opt/k2p_supermesh
+        git config user.email "vb1980@sina.com"
+        git config user.name "vb1980"
     - name: Download source code
       run: |
         cd /opt
