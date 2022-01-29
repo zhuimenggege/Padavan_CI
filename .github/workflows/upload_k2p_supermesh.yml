@@ -1,0 +1,39 @@
+name: Upload K2P SuperMesh Code
+
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install unzip wget git
+        sudo timedatectl set-timezone "$TIME_ZONE"
+    - name: Set git global config
+      run: |
+        cd /opt
+        mkdir -p K2P_SuperMesh/
+        git init
+        git config user.name "vb1980"
+        git config user.email "vb1980@sina.com"
+    - name: Clone source code
+      run: |
+        cd /opt
+        wget https://cloud.dlink.ru/owcl/index.php/s/RtWMJSYaQwJKKHd/download
+        unzip gpl_DIR_853_MT7621AT.zip
+        tar -xvf gpl_DIR_853_MT7621AT.tar.gz -C K2P_SuperMesh
+    - name: Add files and Push remote repo
+      run: |
+        cd /opt/K2P_SuperMesh
+        git add . -f
+        git commit -m "init"
+        git remote add origin https://vb1980:${{ secrets.PRIVREPOTOKEN }}@github.com/vb1980/k2p_supermesh.git
+        git push -f origin master
