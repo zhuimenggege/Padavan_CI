@@ -29,7 +29,7 @@ jobs:
         wget -O gpl_DIR_853_MT7621AT.zip https://cloud.dlink.ru/owcl/index.php/s/RtWMJSYaQwJKKHd/download
         unzip gpl_DIR_853_MT7621AT.zip
         tar -xvf gpl_DIR_853_MT7621AT.tar.gz
-        cp -r gpl_DIR_853_MT7621AT k2p_supermesh
+        cp -r gpl_DIR_853_MT7621AT/* k2p_supermesh/
     - name: Add files and Push remote repo
       run: |
         cd /opt/k2p_supermesh
