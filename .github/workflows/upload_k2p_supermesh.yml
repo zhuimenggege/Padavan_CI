@@ -16,7 +16,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get -y install unzip wget git
-        sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Set git global config
       run: |
         cd /opt
