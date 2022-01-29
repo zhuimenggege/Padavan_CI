@@ -19,21 +19,17 @@ jobs:
     - name: Set git global config
       run: |
         cd /opt
-        mkdir -p K2P_SuperMesh/
-        cd /opt/K2P_SuperMesh
-        git init
-        git config user.name "vb1980"
-        git config user.email "vb1980@sina.com"
+        git clone https://vb1980:${{ secrets.PRIVREPOTOKEN }}@github.com/vb1980/k2p_supermesh.git
     - name: Download source code
       run: |
         cd /opt
         wget -O gpl_DIR_853_MT7621AT.zip https://cloud.dlink.ru/owcl/index.php/s/RtWMJSYaQwJKKHd/download
         unzip gpl_DIR_853_MT7621AT.zip
-        tar -xvf gpl_DIR_853_MT7621AT.tar.gz -C K2P_SuperMesh
+        tar -xvf gpl_DIR_853_MT7621AT.tar.gz
+        cp -r gpl_DIR_853_MT7621AT k2p_supermesh
     - name: Add files and Push remote repo
       run: |
-        cd /opt/K2P_SuperMesh
+        cd /opt/k2p_supermesh
         git add . -f
         git commit -m "init"
-        git remote add origin https://vb1980:${{ secrets.PRIVREPOTOKEN }}@github.com/vb1980/k2p_supermesh.git
-        git push -f origin master
+        git push -f
