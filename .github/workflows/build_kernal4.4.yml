@@ -60,7 +60,7 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone -b kernal4.4 --depth=1 $REPOSITORY_URL $WORK_PATH
+        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
         cd $WORK_PATH/toolchain-mipsel
         mkdir -p toolchain-4.4.x
         wget $TOOLCHAIN_URL
