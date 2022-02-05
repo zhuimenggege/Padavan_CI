@@ -24,7 +24,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"vpnsvr":"n",\r\n"vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","aldriver":"n","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","aldriver":"n","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
