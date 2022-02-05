@@ -61,4 +61,4 @@ jobs:
     - name: Parse json string of include plugins
       run: |
         plugins = ${{fromJson(github.event.inputs.plugins)}}
-        echo "vpnsvr=${plugins}.vpnsvr" >> $GITHUB_ENV
+        echo "vpnsvr=$plugins.vpnsvr" >> $GITHUB_ENV
