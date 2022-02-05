@@ -60,5 +60,6 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Parse json string of include plugins
       run: |
-        plugins = ${{fromJson(github.event.inputs.plugins)}}
-        echo "vpnsvr=$plugins.vpnsvr" >> $GITHUB_ENV
+        echo "plugins=${{fromJson(github.event.inputs.plugins)}}" >> $GITHUB_ENV
+        echo "vpnsvr1=${{env.plugins}}.vpnsvr" >> $GITHUB_ENV
+        echo "vpnsvr2=${{env.plugins.vpnsvr}}" >> $GITHUB_ENV
