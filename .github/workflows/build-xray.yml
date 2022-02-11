@@ -52,6 +52,6 @@ jobs:
     - name: Upload firmware to wenshushu
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 ${FIRMWARE} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 ${xray} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
         echo "WETRANSFER_URL=$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
