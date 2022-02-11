@@ -52,7 +52,6 @@ jobs:
     - name: Upload firmware to wenshushu
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wss ${xray} 2>&1 | tee wenshushu.log
-        cat wenshushu.log
-        echo "::warning file=wenshushu.cn::$(cat wenshushu.log | grep https | cut -f3 -d" ")"
-        echo "Wenshushu_Url=$(cat wenshushu.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
+        ./transfer wss ${{ env.xray }} 2>&1 | tee wss.log
+        echo "::warning file=wenshushu.cn::$(cat wss.log | grep Local: | cut -f2 -d" ")"
+        echo "Wenshushu_Url=$(cat wss.log | grep -o -E "https?://wss1.cn/[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
