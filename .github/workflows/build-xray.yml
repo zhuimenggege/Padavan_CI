@@ -19,7 +19,7 @@ jobs:
     - name: Setup golang version
       uses: actions/setup-go@v2
       with:
-        go-version: '1.17.2'
+        go-version: '1.17.6'
 
     - name: Initialization environment
       run: |
@@ -29,11 +29,8 @@ jobs:
     - name: Clone&Build source code
       id: build
       run: |
-        git clone https://github.com/xtls/xray-core.git xray-core
-        cd xray-core
-        git checkout a58e20c81119e2a46d8975c3123e18f5dd63821e
-        #cd xray-core/main
-        cd main
+        git clone --depth=1 https://github.com/xtls/xray-core.git xray-core
+        cd xray-core/main
         #GOOS=linux GOARCH=mipsle go build -o ../../xraybin/xray
         GOOS=linux GOARCH=mipsle go build -o ../../xraybin/xray -trimpath -ldflags "-s -w -buildid=" ./
         cd ../../xraybin
@@ -49,9 +46,3 @@ jobs:
       with:
         name: xray-packages
         path: ${{ env.xray }}
-    - name: Upload firmware to wenshushu
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 ${xray} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
-        echo "WETRANSFER_URL=$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV

@@ -6,7 +6,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20220204'
+        default: '20210829'
       busyboxver:
         type: choice
         description: 'busybox''s version'
@@ -22,14 +22,10 @@ on:
         type: boolean
         description: 'whether to apply specialized logo for e8820s'
         default: 'true'
-      uploadcow:
-        type: boolean
-        description: 'whether to upload firmware to cowtransfer'
-        default: 'true'
       uploadwet:
         type: boolean
         description: 'whether to upload firmware to wettransfer'
-        default: 'false'
+        default: 'true'
       pushplus:
         type: boolean
         description: 'whether to notify through pushplus'
@@ -153,7 +149,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
         echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config #集成v2ray执行文件（3.8M左右)
         echo "CONFIG_FIRMWARE_INCLUDE_XRAY=y" >> .config #集成xray执行文件(5.6M左右)，可以代替v2ray，注：如果闪存太小不够还是建议使用v2ray
-        echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=n" >> .config #集成trojan执行文件(1.1M左右)
+        echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=y" >> .config #集成trojan执行文件(1.1M左右)
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
         echo "CONFIG_FIRMWARE_INCLUDE_KUMASOCKS=y" >> .config #socks5
@@ -164,7 +160,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_TUNSAFE=n" >> .config #TUNSAFE
         echo "CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER=n" >> .config #DNSFORWARDER
         #
-        echo "CONFIG_FIRMWARE_INCLUDE_FRPC=y" >> .config #内网穿透FRPC
+        echo "CONFIG_FIRMWARE_INCLUDE_FRPC=n" >> .config #内网穿透FRPC
         echo "CONFIG_FIRMWARE_INCLUDE_FRPS=n" >> .config #内网穿透FRPS
         echo "CONFIG_FIRMWARE_INCLUDE_NPC=n" >> .config #删除配置项NPC
         #
@@ -235,20 +231,13 @@ jobs:
       with:
         name: Padavan-packages
         path: ${{ env.FIRMWARE }}
-    - name: Upload firmware to cowtransfer
-      if: steps.organize.outputs.status == 'success' && github.event.inputs.uploadcow == 'true'
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
-        echo "COWTRANSFER_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && github.event.inputs.uploadwet == 'true'
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
-        echo "WETRANSFER_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
+        echo "WETRANSFER_URL=$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
     - name: Remove obsolete firmwares on artifacts
       uses: c-hive/gha-remove-artifacts@v1.2.0
       if: steps.organizer.outputs.status == 'success'
@@ -261,4 +250,4 @@ jobs:
       with:
         token: ${{ secrets.PUSHTOKEN }}
         title: ${{ env.TARGET_NAME }}_Build_Completed
-        content: Congratulations,<br/>&nbsp;&nbsp;Your **${{ env.TARGET_NAME }}** padavan firmware build completed!<br/>&nbsp;&nbsp;🐮CowTransfer Download Url:${{ env.COWTRANSFER_URL }}<br/>&nbsp;&nbsp;Enjoy it🎈🎁!
+        content: Congratulations,<br/>&nbsp;&nbsp;Your **${{ env.TARGET_NAME }}** padavan firmware build completed!<br/>&nbsp;&nbsp;🐮WetTransfer Download Url:${{ env.WETRANSFER_URL }}<br/>&nbsp;&nbsp;Enjoy it🎈🎁!
