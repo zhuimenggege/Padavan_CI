@@ -7,6 +7,10 @@ on:
         type: choice
         description: 'target to compile'
         options:
+        - ZTE-E8820S
+        - MSG1500
+        - BELL-A040WQ
+        - B70
         - K2P
         - R2100
         - RM2100
@@ -21,20 +25,31 @@ on:
         - MR2600
         - MI-R3P
         - MI-R3G
+        - MI-R3G-PB
+        - MI-4
+        - RT-AC85P
+        - WR1200JS
+        - NEWIFI
         - XY-C1
-        - MSG1500
-        - BELL-A040WQ
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","alidriver":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"n","aldriver":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+      rainbowui:
+        type: boolean
+        description: 'whether to apply rainbow ui'
+        default: 'true'
+      specializedlogo:
+        type: boolean
+        description: 'whether to apply specialized logo for e8820s or a-040w-q'
+        default: 'true'
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20220205'
+        default: '20220224'
       uploadwet:
         type: boolean
-        description: 'whether to upload firmware to wettransfer'
+        description: 'whether to upload firmware to wetransfer'
         default: 'true'
 env:
   REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
@@ -69,6 +84,33 @@ jobs:
         mkdir -p toolchain-4.4.x
         wget $TOOLCHAIN_URL
         tar -xf mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+    - name: Apply rainbow themes
+      if: github.event.inputs.rainbowui == 'true'
+      run: |
+        cd $WORK_PATH/trunk/user/www
+        sed -i "s/WEBUI_NAME=n56u_ribbon_fixed/WEBUI_NAME=n56u_rainbow/g" ./Makefile
+    - name: Apply specialized logo
+      if: github.event.inputs.specializedlogo == 'true'
+      run: |
+        logoFile=
+        if [ "${{ github.event.inputs.target }}" = "BELL-A040WQ" ]; then
+        logoFile="a040wq/bell_asus_logo.png"
+        fi
+        if [ "${{ github.event.inputs.target }}" = "ZTE-E8820S" ]; then
+        logoFile="e8820s/zte_asus_logo.png"
+        fi
+        if [ -n "$logoFile" ]; then
+            cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/bootstrap/img/asus_logo.png
+            if [ "${{ github.event.inputs.rainbowui }}" = "true" ]; then
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_blue.png
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_cyan.png
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_green.png
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_orange.png
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_purple.png
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_red.png
+                cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_yellow.png
+            fi
+        fi
     - name: Parse json string of include plugins
       run: |
         echo "vpnsvr=${{fromJson(github.event.inputs.plugins).vpnsvr}}" >> $GITHUB_ENV
@@ -86,7 +128,8 @@ jobs:
         echo "zerotier=${{fromJson(github.event.inputs.plugins).zerotier}}" >> $GITHUB_ENV
         echo "ddnsto=${{fromJson(github.event.inputs.plugins).ddnsto}}" >> $GITHUB_ENV
         echo "wireguard=${{fromJson(github.event.inputs.plugins).wireguard}}" >> $GITHUB_ENV
-        echo "alidriver=${{fromJson(github.event.inputs.plugins).alidriver}}" >> $GITHUB_ENV
+        echo "frpc=${{fromJson(github.event.inputs.plugins).frpc}}" >> $GITHUB_ENV
+        echo "aldriver=${{fromJson(github.event.inputs.plugins).aldriver}}" >> $GITHUB_ENV
         echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
         echo "mentohust=${{fromJson(github.event.inputs.plugins).mentohust}}" >> $GITHUB_ENV
         echo "scutclient=${{fromJson(github.event.inputs.plugins).scutclient}}" >> $GITHUB_ENV
@@ -118,6 +161,8 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
         sed -i '/CONFIG_FIRMWARE_INCLUDE_DDNSTO/d' .config #删除配置项ddnsto
         sed -i '/CONFIG_FIRMWARE_INCLUDE_WIREGUARD/d' .config #删除配置项wireguard
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPS/d' .config #删除配置项frp server
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_FRPC/d' .config #删除配置项frp client
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ALDRIVER/d' .config #删除配置项阿里云盘
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SQM/d' .config #删除配置项阿里云盘
         #校园网相关开始
@@ -154,8 +199,10 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=${{env.zerotier}}" >> .config #zerotier ~1.3M
         echo "CONFIG_FIRMWARE_INCLUDE_DDNSTO=${{env.ddnsto}}" >> .config #ddnsto
         echo "CONFIG_FIRMWARE_INCLUDE_WIREGUARD=${{env.wireguard}}" >> .config #wireguard
+        echo "CONFIG_FIRMWARE_INCLUDE_FRPS=n" >> .config #frp server
+        echo "CONFIG_FIRMWARE_INCLUDE_FRPC=${{env.frpc}}" >> .config #frp client
         #
-        echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.alidriver}}" >> .config #阿里云盘
+        echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.aldriver}}" >> .config #阿里云盘
         echo "CONFIG_FIRMWARE_INCLUDE_SQM=${{env.sqm}}" >> .config #阿里云盘
         #
         #校园网相关开始
@@ -182,10 +229,14 @@ jobs:
     - name: Organize firmware files
       id: organize
       run: |
+        rainbow_Prefix=""
+        if [ "${{ github.event.inputs.rainbowui }}" = "true" ]; then
+            rainbow_Prefix="rainbow_"
+        fi
         mkdir -p $FIRMWARE_PATH/
         cd $WORK_PATH/trunk/images
         for firmwarefile in $(ls *.trx)
-        do sudo mv $firmwarefile $FIRMWARE_PATH/${FIRMWARE_DATEPREFIX}"_"${FIRMWARE_AUTHOR}"_"${{ github.event.inputs.target }}"_kernal4.4.trx"
+        do sudo mv $firmwarefile $FIRMWARE_PATH/${FIRMWARE_DATEPREFIX}"_"${FIRMWARE_AUTHOR}"_"${{ github.event.inputs.target }}"_"${rainbow_Prefix}"kernal4.4.trx"
         done
         cd $FIRMWARE_PATH
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
