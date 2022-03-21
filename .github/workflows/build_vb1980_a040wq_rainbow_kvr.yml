@@ -69,7 +69,7 @@ jobs:
         cp -f bashScripts/go.sh $(pwd)
         sudo chmod 777 ./go.sh
         bash ./go.sh
-    - name: Set busybox's version to compiles
+    - name: Set busybox's version to compile
       run: |
         cd $WORK_PATH/trunk/user/busybox
         sed -i "s/SRC_NAME=busybox.*/SRC_NAME=busybox-${{ github.event.inputs.busyboxver }}/g" ./Makefile
