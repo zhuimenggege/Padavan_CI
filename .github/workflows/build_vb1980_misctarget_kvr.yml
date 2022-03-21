@@ -24,10 +24,12 @@ on:
         - R6220
         - RT-AC85P
         - XY-C1
+        - RS1200P
+        default: 'RS1200P'
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20201015'
+        default: '20220321'
       busyboxver:
         type: choice
         description: 'busybox''s version'
@@ -42,7 +44,7 @@ on:
       ssp:
         type: boolean
         description: 'whether to apply the patch for download ssp bin from local or remote url'
-        default: 'true'
+        default: 'false'
       uploadwet:
         type: boolean
         description: 'whether to upload firmware to wetransfer'
@@ -247,13 +249,6 @@ jobs:
       with:
         name: Padavan-packages
         path: ${{ env.FIRMWARE }}
-    - name: Upload firmware to cowtransfer
-      if: steps.organize.outputs.status == 'success' && github.event.inputs.uploadcow == 'true'
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        echo "COWTRANSFER_URL=$(cat cowtransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && github.event.inputs.uploadwet == 'true'
       run: |
