@@ -113,6 +113,11 @@ jobs:
                 cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_rainbow/bootstrap/img/logo_yellow.png
             fi
         fi
+    - name: Update Default 2G/5G SSID
+      run: |
+        cd $WORK_PATH/trunk/user/shared
+        sed -i "s/BOARD_PID \"_%s\"/\""K2P\""/g" ./defaults.h
+        sed -i "s/BOARD_PID \"_5G_%s\"/\""K2P_5G\""/g" ./defaults.h
     - name: Parse json string of include plugins
       run: |
         echo "vpnsvr=${{fromJson(github.event.inputs.plugins).vpnsvr}}" >> $GITHUB_ENV
