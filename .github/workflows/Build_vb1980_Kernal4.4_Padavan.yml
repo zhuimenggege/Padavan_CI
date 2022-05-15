@@ -37,7 +37,7 @@ on:
         type: choice
         description: 'branch to compile'
         options:
-        - master
+        - main
         - upgradelibs
         default: upgradelibs
       plugins:
