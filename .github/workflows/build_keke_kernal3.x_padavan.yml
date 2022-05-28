@@ -1,4 +1,4 @@
-name: Build Misc Target from vb1980 kvr repo
+name: Build keke1023's kernal3.x padavan
 
 on:
   workflow_dispatch:
