@@ -29,7 +29,7 @@ on:
         description: 'whether to upload firmware to wettransfer'
         default: 'false'
 env:
-  REPOSITORY_URL: https://github.com/stkuroneko/asuswrt-modx.git
+  REPOSITORY_URL: https://github.com/stkuroneko/asuswrt-mt7621at.git
   WORK_PATH: /opt/asuswrt-modx
   TIME_ZONE: Asia/Shanghai
   FIRMWARE_PATH: /opt/firmwares
