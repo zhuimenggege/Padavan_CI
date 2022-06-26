@@ -26,7 +26,8 @@ on:
         - XY-C1
         - RS1200P
         - TIMECLOUD
-        default: 'TIMECLOUD'
+        - WR330
+        default: 'WR330'
       plugins:
         description: 'json format string of include configs'
         required: true
