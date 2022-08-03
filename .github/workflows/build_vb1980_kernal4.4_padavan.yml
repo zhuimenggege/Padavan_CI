@@ -114,6 +114,9 @@ jobs:
         if [ "${{ github.event.inputs.target }}" = "ZTE-E8820S" ]; then
         logoFile="e8820s/zte_asus_logo.png"
         fi
+        if [ "${{ github.event.inputs.target }}" = "MSG1500" ]; then
+        logoFile="msg1500/raisecom_asus_logo.png"
+        fi
         if [ -n "$logoFile" ]; then
             cp -f $logoFile $WORK_PATH/trunk/user/www/n56u_ribbon_fixed/bootstrap/img/asus_logo.png
             if [ "${{ github.event.inputs.rainbowui }}" = "true" ]; then
