@@ -9,8 +9,8 @@ do
 echo $i
 echo $i >> $goVersions
 done
-new_ver=`sed -n '1p' $goVersions`
-old_ver=`sed -n '3p' $goVersions`
+new_ver=`sed -n '2p' $goVersions`
+old_ver=`sed -n '1p' $goVersions`
 echo "rm -rf $goCacheRootDir/$old_ver"
 rm -rf $goCacheRootDir/$old_ver
 #echo "mv $goCacheRootDir/$new_ver $goCacheRootDir/$old_ver"
