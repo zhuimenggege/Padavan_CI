@@ -34,13 +34,6 @@ on:
         - XY-C1
         - GHL
         default: ZTE-E8820S
-      branch:
-        type: choice
-        description: 'branch to compile'
-        options:
-        - main
-        - upgradelibs
-        default: upgradelibs
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -67,7 +60,6 @@ on:
         default: 'true'
 env:
   REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
-  TOOLCHAIN_URL: https://github.com/hanwckf/padavan-toolchain/releases/download/linux-4.4-v1.0/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/padavan-4.4
   TIME_ZONE: Asia/Shanghai
   FIRMWARE_DATEPREFIX: $(date +"%Y%m%d")
@@ -93,11 +85,9 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone -b ${{ github.event.inputs.branch }} --depth=1 $REPOSITORY_URL $WORK_PATH
-        cd $WORK_PATH/toolchain-mipsel
-        mkdir -p toolchain-4.4.x
-        wget $TOOLCHAIN_URL
-        tar -xf mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+        cd $WORK_PATH
+        sed -i '/cp -f/d' Makefile
     - name: Apply rainbow themes
       if: github.event.inputs.rainbowui == 'true'
       run: |
@@ -252,9 +242,8 @@ jobs:
         #########################################################################################
     - name: Build firmware
       run: |
-        cd $WORK_PATH/trunk
-        sudo ./clear_tree
-        sudo ./build_firmware_modify ${{ github.event.inputs.target }} 0
+        cd $WORK_PATH
+        sudo make ${{ github.event.inputs.target }}
         echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
     - name: Organize firmware files
       id: organize
