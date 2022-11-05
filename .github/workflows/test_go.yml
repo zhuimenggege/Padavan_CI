@@ -36,7 +36,7 @@ jobs:
     - name: Build firmware
       run: |
         cd $WORK_PATH/toolchain-mipsel
-        mkdir -p $(TOOLCHAIN_ROOT)
+        mkdir -p toolchain-4.4.x
         curl -fSsLo- https://github.com/tsl0922/padavan/releases/download/toolchain/mipsel-linux-uclibc-gcc10.tar.xz | tar Jx -C $WORK_PATH/toolchain-mipsel/toolchain-4.4.x
         cd $WORK_PATH/trunk/user/xray
         sudo make
