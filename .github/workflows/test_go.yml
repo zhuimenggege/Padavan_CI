@@ -12,12 +12,11 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Setup Golang with cache
-      uses: magnetikonline/action-golang-cache@v3
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
       with:
-        go-version: '^1.19.2'
+        go-version: '1.19.2'
+        check-latest: true
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -28,7 +27,7 @@ jobs:
         texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
         libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin libev-dev
         sudo timedatectl set-timezone "$TIME_ZONE"
-        echo "${GOROOT}/bin" >> $GITHUB_PATH
+        #echo "${GOROOT}/bin" >> $GITHUB_PATH
     - name: Clone source code
       run: |
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
@@ -40,7 +39,7 @@ jobs:
         mkdir -p toolchain-4.4.x
         curl -fSsLo- https://github.com/tsl0922/padavan/releases/download/toolchain/mipsel-linux-uclibc-gcc10.tar.xz | tar Jx -C $WORK_PATH/toolchain-mipsel/toolchain-4.4.x
         cd $WORK_PATH/trunk/user/xray
-        export GOROOT="/opt/hostedtoolcache/go/1.19.2/x64"
+        #export GOROOT="/opt/hostedtoolcache/go/1.19.2/x64"
         sudo make
     - name: Remove obsolete firmwares on artifacts
       uses: c-hive/gha-remove-artifacts@v1.2.0
