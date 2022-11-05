@@ -40,6 +40,7 @@ jobs:
         mkdir -p toolchain-4.4.x
         curl -fSsLo- https://github.com/tsl0922/padavan/releases/download/toolchain/mipsel-linux-uclibc-gcc10.tar.xz | tar Jx -C $WORK_PATH/toolchain-mipsel/toolchain-4.4.x
         cd $WORK_PATH/trunk/user/xray
+        export GOROOT="/opt/hostedtoolcache/go/1.19.2/x64"
         sudo make
     - name: Remove obsolete firmwares on artifacts
       uses: c-hive/gha-remove-artifacts@v1.2.0
