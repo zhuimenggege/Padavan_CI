@@ -42,7 +42,7 @@ jobs:
 
     - name : Upload packages
       uses: actions/upload-artifact@main
-      if: steps.build.outputs.status == 'success'
+      if: env.STATUS == 'success'
       with:
         name: xray-packages
         path: ${{ env.xray }}
