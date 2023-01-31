@@ -46,8 +46,9 @@ jobs:
         sudo sed -i '/^do_backup $arch/d' plan_b/build.sh
         sudo cp -f ${{env.xray}}/xray plan_b/bin_arch/mipsle
         sudo chmod +x plan_b/bin_arch/mipsle/xray
-        sudo plan_b/build.sh
-        cd plan_b/bin/mipsle
+        cd plan_b
+        sudo bash ./build.sh
+        cd bin/mipsle
         echo "helloworld=$PWD" >> $GITHUB_ENV
         echo "STATUS=success" >> $GITHUB_ENV
         
