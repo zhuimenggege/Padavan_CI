@@ -27,7 +27,6 @@ jobs:
         sudo apt install upx git -y
 
     - name: Clone&Build xray source code
-      id: build xray
       run: |
         git clone --depth=1 https://github.com/xtls/xray-core.git xray-core
         cd xray-core/main
@@ -40,7 +39,6 @@ jobs:
         echo "xray=$PWD" >> $GITHUB_ENV
         
     - name: Clone&Build plan_b
-      id: build plan_b
       run: |
         git clone --depth=1 https://github.com/zusterben/plan_b
         #cd xray-core/main
