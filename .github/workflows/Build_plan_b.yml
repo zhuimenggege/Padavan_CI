@@ -41,9 +41,10 @@ jobs:
     - name: Clone&Build plan_b
       run: |
         git clone --depth=1 https://github.com/zusterben/plan_b
-        sudo sed -i '/^arch_list=/arch_list="mipsle"' plan_b/build.sh
-        sudo sed -i '/^sync_xray_binary $arch/d' plan_b/build.sh
-        sudo sed -i '/^do_backup $arch/d' plan_b/build.sh
+        mkdir plan_b/helloworld/bin
+        sudo sed -i 's/arch_list="mips arm armng arm64 mipsle"/arch_list="mipsle"' plan_b/build.sh
+        sudo sed -i '/sync_xray_binary $arch/d' plan_b/build.sh
+        sudo sed -i '/do_backup $arch/d' plan_b/build.sh
         sudo cp -f ${{env.xray}}/xray plan_b/bin_arch/mipsle
         sudo chmod +x plan_b/bin_arch/mipsle/xray
         cd plan_b
