@@ -4,46 +4,24 @@ on:
   workflow_dispatch:
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/padavan-4.4-1.git
-  WORK_PATH: /opt/padavan-4.4
-  TIME_ZONE: Asia/Shanghai
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
-      with:
-        go-version: '1.19.2'
-        check-latest: true
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo apt-get update
-        sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
-        fakeroot kmod cpio git python3-docutils gettext automake autopoint \
-        texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
-        libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin libev-dev
-        sudo timedatectl set-timezone "$TIME_ZONE"
-        #echo "${GOROOT}/bin" >> $GITHUB_PATH
+        sudo apt install git
     - name: Clone source code
       run: |
-        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
-        cd $WORK_PATH
-        #sed -i '/cp -f/d' Makefile
+        git clone --depth=1 $REPOSITORY_URL padavan-4.4
+        cd padavan-4.4
+        echo "WorkPath=$PWD" >> $GITHUB_ENV
     - name: Build firmware
       run: |
-        cd $WORK_PATH/toolchain-mipsel
-        mkdir -p toolchain-4.4.x
-        curl -fSsLo- https://github.com/tsl0922/padavan/releases/download/toolchain/mipsel-linux-uclibc-gcc10.tar.xz | tar Jx -C $WORK_PATH/toolchain-mipsel/toolchain-4.4.x
-        cd $WORK_PATH/trunk/user/xray
-        #export GOROOT="/opt/hostedtoolcache/go/1.19.2/x64"
-        sudo make
-    - name: Remove obsolete firmwares on artifacts
-      uses: c-hive/gha-remove-artifacts@v1.2.0
-      if: steps.organizer.outputs.status == 'success'
-      with:
-        age: '1 day'
-        skip-recent: 5
+        echo env.WorkPath
