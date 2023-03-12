@@ -24,4 +24,4 @@ jobs:
         echo "WorkPath=$PWD" >> $GITHUB_ENV
     - name: Build firmware
       run: |
-        echo env.WorkPath
+        echo ${{env.WorkPath}}
