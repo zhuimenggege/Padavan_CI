@@ -33,7 +33,6 @@ jobs:
             }
           }
         export_to: env
-        mode: first_match
     - name: Echo environment and output
       run: |
         echo ${{ env.model }}
