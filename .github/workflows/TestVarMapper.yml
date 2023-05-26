@@ -7,8 +7,8 @@ on:
         type: choice
         description: 'target to compile'
         options:
-        - 'RAISECOM_MSG1500_X.00'
-        - 'Nokia-Sbell_A-040W-Q'
+        - '瑞斯康达MSG1500(x.00)'
+        - '诺基亚贝尔A-040W-Q'
         default: 'RAISECOM MSG1500 X.00'
 jobs:
   build:
@@ -22,10 +22,10 @@ jobs:
         key: "${{ github.event.inputs.target }}"
         map: |
           {
-            "RAISECOM_MSG1500_X.00": {
+            "瑞斯康达MSG1500(x.00)": {
               "model": "MSG1500"
             },
-            "Nokia-Sbell_A-040W-Q": {
+            "诺基亚贝尔A-040W-Q": {
               "model": "A-040W-Q"
             },
             ".*": {
