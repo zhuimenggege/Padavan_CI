@@ -64,5 +64,6 @@ jobs:
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer anon --no-progress ${FIRMWARE} 2>&1 | tee anonfile.log
+        echo "$(cat anonfile.log)"
         echo "::warning file=anonfile.com::$(cat anonfile.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
         #echo "WETRANSFER_URL=$(cat wetransfer.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")" >> $GITHUB_ENV
