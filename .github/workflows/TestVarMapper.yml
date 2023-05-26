@@ -27,6 +27,9 @@ jobs:
             },
             "Nokia-Sbell A-040W-Q": {
               "model": "A-040W-Q"
+            },
+            ".*": {
+              "model": "K2P"
             }
           }
         export_to: env
