@@ -1,0 +1,39 @@
+name: Test Var Mapper
+
+on: 
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        description: 'target to compile'
+        options:
+        - 'RAISECOM MSG1500 X.00'
+        - 'Nokia-Sbell A-040W-Q'
+        default: 'RAISECOM MSG1500 X.00'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      
+    - uses: kanga333/variable-mapper@master
+      id: export
+      with:
+        key: "${{ github.event.inputs.target }}"
+        map: |
+          {
+            "RAISECOM MSG1500 X.00": {
+              "model": "MSG1500"
+            },
+            "Nokia-Sbell A-040W-Q": {
+              "model": "BELL-A040WQ"
+            }
+          }
+        export_to: env
+        mode: first_match
+    - name: Echo environment and output
+      run: |
+        echo ${{ env.model }}
