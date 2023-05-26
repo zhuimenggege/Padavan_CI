@@ -22,7 +22,7 @@ jobs:
     - uses: kanga333/variable-mapper@master
       id: export
       with:
-        key: "${{github.event.inputs.target}}"
+        key: "RAISECOM MSG1500 X.00"
         map: |
           {
             "RAISECOM MSG1500 X.00": {
