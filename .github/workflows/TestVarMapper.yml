@@ -19,22 +19,18 @@ jobs:
     - uses: kanga333/variable-mapper@master
       id: export
       with:
-        key: "first"
+        key: "${{ github.event.inputs.target }}"
         map: |
           {
-            "first": {
-              "env1": "value1",
-              "env2": "value2"
+            "RAISECOM MSG1500 X.00": {
+              "model": "MSG1500"
             },
-            ".*": {
-              "env1": "value1_overwrite",
-              "env3": "value3"
+            "Nokia-Sbell A-040W-Q": {
+              "model": "A-040W-Q"
             }
           }
         export_to: env
         mode: first_match
     - name: Echo environment and output
       run: |
-        echo ${{ env.env1 }}
-        echo ${{ env.env2 }}
-        echo ${{ env.env3 }}
+        echo ${{ env.model }}
