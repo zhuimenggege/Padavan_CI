@@ -38,7 +38,7 @@ jobs:
     - name: Upload firmware to Anonfile
       if: env.STATUS == 'success'
       run: |
-        #curl -fsSL git.io/file-transfer | sh
+        curl -fsSL git.io/file-transfer | sh
         ./transfer anon --no-progress ${xray} 2>&1 | tee anonfile.log
         #curl -F "file=@${xray}" https://api.anonfiles.com/upload > anonfile.log
         cat anonfile.log
