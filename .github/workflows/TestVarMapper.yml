@@ -16,24 +16,25 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
-      
     - uses: kanga333/variable-mapper@master
       id: export
       with:
-        key: "RAISECOM MSG1500 X.00"
+        key: "first"
         map: |
           {
-            "RAISECOM MSG1500 X.00": {
-              "model": "MSG1500"
+            "first": {
+              "env1": "value1",
+              "env2": "value2"
             },
-            "Nokia-Sbell A-040W-Q": {
-              "model": "BELL-A040WQ"
+            ".*": {
+              "env1": "value1_overwrite",
+              "env3": "value3"
             }
           }
         export_to: env
-        mode: fill
+        mode: first_match
     - name: Echo environment and output
       run: |
-        echo ${{ env.model }}
+        echo ${{ env.env1 }}
+        echo ${{ env.env2 }}
+        echo ${{ env.env3 }}
