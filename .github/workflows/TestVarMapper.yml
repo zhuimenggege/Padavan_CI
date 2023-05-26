@@ -22,7 +22,7 @@ jobs:
     - uses: kanga333/variable-mapper@master
       id: export
       with:
-        key: "${{ github.event.inputs.target }}"
+        key: "${{github.event.inputs.target}}"
         map: |
           {
             "RAISECOM MSG1500 X.00": {
@@ -33,6 +33,7 @@ jobs:
             }
           }
         export_to: env
+        mode: fill
     - name: Echo environment and output
       run: |
         echo ${{ env.model }}
