@@ -56,11 +56,16 @@ on:
         - Xiaoyu_C5
         - ZTE_E8820S
         - FCJ_G-AX1800
+        - Skspruce_WIA3300-10
         default: SIM_AX1800T
       plugins:
         description: 'json format string of include configs'
         required: true
         default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"y","ssobfs":"y","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"y","aldrive":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+      lanip:
+        description: 'custom lan ip instead of default'
+        required: true
+        default: '192.168.2.1'
       rainbowui:
         type: boolean
         description: 'apply rainbow ui'
@@ -249,6 +254,9 @@ jobs:
             "FCJ_G-AX1800": {
               "model": "G-AX1800"
             },
+            "Skspruce_WIA3300-10": {
+              "model": "WIA3300-10"
+            },
             ".*": {
               "model": "K2P"
             }
@@ -281,6 +289,12 @@ jobs:
         cd $WORK_PATH
         mkdir -p toolchain-mipsel/toolchain-4.4.x
         tar -Jxvf mipsel-linux-uclibc-gcc10.tar.xz -C toolchain-mipsel/toolchain-4.4.x
+    - name: Custom Lan IP
+      run: |
+        cp -f bashScripts/setlanip.sh $WORK_PATH/trunk
+        cd $WORK_PATH/trunk
+        sudo chmod +x setlanip.sh
+        bash ./setlanip.sh ./user/shared/defaults.h ${{ github.event.inputs.lanip }}
     - name: Apply rainbow themes
       if: github.event.inputs.rainbowui == 'true'
       run: |

@@ -11,6 +11,10 @@ on:
         description: 'json format string of include configs'
         required: true
         default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"n","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"y","aldrive":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+      lanip:
+        description: 'custom lan ip instead of default'
+        required: true
+        default: '192.168.2.1'
       rainbowui:
         type: boolean
         description: 'apply rainbow ui'
@@ -78,6 +82,12 @@ jobs:
         cd $WORK_PATH
         mkdir -p toolchain-mipsel/toolchain-4.4.x
         tar -Jxvf mipsel-linux-uclibc-gcc10.tar.xz -C toolchain-mipsel/toolchain-4.4.x
+    - name: Custom Lan IP
+      run: |
+        cp -f bashScripts/setlanip.sh $WORK_PATH/trunk
+        cd $WORK_PATH/trunk
+        sudo chmod +x setlanip.sh
+        bash ./setlanip.sh ./user/shared/defaults.h ${{ github.event.inputs.lanip }}
     - name: Apply rainbow themes
       if: github.event.inputs.rainbowui == 'true'
       run: |
