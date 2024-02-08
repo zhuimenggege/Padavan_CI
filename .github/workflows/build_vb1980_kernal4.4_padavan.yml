@@ -269,7 +269,7 @@ jobs:
         mode: first_match
     - uses: actions/setup-go@v5
       with:
-        go-version: '1.21.1'
+        go-version: '1.21.4'
         check-latest: true
         cache-dependency-path: '**/go.sum'
     - name: Initialization environment
