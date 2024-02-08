@@ -418,9 +418,8 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=${{env.trojan}}" >> .config #集成trojan执行文件(1.1M左右)
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=${{env.ssobfs}}" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
-        if [ "${{env.xray}}" = "y" && "${{ github.event.inputs.usexraymin }}" = "true" ]; then
+        if [[ "${{env.xray}}" == "y" && "${{ github.event.inputs.usexraymin }}" == "true" ]]; then
         sed -i 's/+= xray/+= xraymin/g' $WORK_PATH/trunk/user/Makefile
-        cat $WORK_PATH/trunk/user/Makefile
         fi
         #
         echo "CONFIG_FIRMWARE_INCLUDE_SRELAY=n" >> .config #可以不集成
