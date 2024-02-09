@@ -298,7 +298,11 @@ jobs:
         cp -f bashScripts/setlanip.sh $WORK_PATH/trunk
         cd $WORK_PATH/trunk
         sudo chmod +x setlanip.sh
-        bash ./setlanip.sh ./user/shared/defaults.h ${{ github.event.inputs.lanip }}
+        if [ "${{ github.event.inputs.rainbowui }}" = "true" ]; then
+          bash ./setlanip.sh ./user/shared/defaults.h ./user/www/n56u_rainbow/Restarting.asp ${{ github.event.inputs.lanip }}
+        else
+          bash ./setlanip.sh ./user/shared/defaults.h ./user/www/n56u_ribbon_fixed/Restarting.asp ${{ github.event.inputs.lanip }}
+        fi
     - name: Apply rainbow themes
       if: github.event.inputs.rainbowui == 'true'
       run: |
