@@ -1,0 +1,34 @@
+name: build mt7981 uboot
+on: 
+  workflow_dispatch:
+    inputs:
+      board:
+        description: 'board name to build'
+        required: true
+        type: choice
+        options:
+        - nokia_ea0326gmp
+        - newland_nl-wr9103
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: prepare
+        run: |
+          sudo apt update
+          sudo apt install build-essential bison flex bc libssl-dev python-is-python3 device-tree-compiler gcc-aarch64-linux-gnu
+          export CROSS_COMPILE=aarch64-linux-gnu-
+
+      - name: clone
+          git clone https://github.com/vb1980/bl-mt798x
+        
+      - name: build
+          cd bl-mt798x
+          SOC=mt7981 BOARD=${{ github.event.inputs.board }} FIXED_MTDPARTS=1 ./build.sh
+          
+      - name: upload
+        uses: actions/upload-artifact@main
+        with: 
+            name: uboot_fixed-parts
+            path: bl-mt798x/output/mt7981_${{ github.event.inputs.board }}-fip-fixed-parts.bin
