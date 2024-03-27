@@ -21,9 +21,11 @@ jobs:
           export CROSS_COMPILE=aarch64-linux-gnu-
 
       - name: clone
+        run: |
           git clone https://github.com/vb1980/bl-mt798x
         
       - name: build
+        run: |
           cd bl-mt798x
           SOC=mt7981 BOARD=${{ github.event.inputs.board }} FIXED_MTDPARTS=1 ./build.sh
           
