@@ -23,6 +23,7 @@ on:
         - JCQ_Q20-PB
         - JCQ_Q20
         - JCQ_Q10Pro
+        - JCQ_Q11Pro
         - JCG_Y2
         - JDCloud_Luban
         - JDCloud_1
@@ -85,7 +86,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20220520'
+        default: '20240403'
       uploadanon:
         type: boolean
         description: 'upload firmware to anonfiles'
@@ -158,6 +159,9 @@ jobs:
             },
             "JCQ_Q10Pro": {
               "model": "JCG-Q20"
+            },
+            "JCQ_Q11Pro": {
+              "model": "JCG-Q11Pro"
             },
             "JCG_Y2": {
               "model": "JCG-Y2"
@@ -269,7 +273,7 @@ jobs:
         mode: first_match
     - uses: actions/setup-go@v5
       with:
-        go-version: '1.21.4'
+        go-version: '1.22.0'
         check-latest: true
         cache-dependency-path: '**/go.sum'
     - name: Initialization environment
