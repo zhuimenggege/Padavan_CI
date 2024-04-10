@@ -70,7 +70,7 @@ on:
       customization:
         description: 'json format string of customized configs'
         required: true
-        default: '{"rainbowui":"y","specializedlogo":"n","changebrandlogo":"n","lanip":"192.168.2.1","signaccount":"admin","signpassword":"admin","2gwifissid":"","5gwifissid":"","2gwifipsk":"","5gwifipsk":""}'
+        default: '{"rainbowui":"y","specializedlogo":"n","changebrandlogo":"n","lanip":"192.168.2.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -296,10 +296,10 @@ jobs:
         echo "lanip=${{fromJson(github.event.inputs.customization).lanip}}" >> $GITHUB_ENV
         echo "signaccount=${{fromJson(github.event.inputs.customization).signaccount}}" >> $GITHUB_ENV
         echo "signpassword=${{fromJson(github.event.inputs.customization).signpassword}}" >> $GITHUB_ENV
-        echo "2gwifissid=${{fromJson(github.event.inputs.customization).2gwifissid}}" >> $GITHUB_ENV
-        echo "5gwifissid=${{fromJson(github.event.inputs.customization).5gwifissid}}" >> $GITHUB_ENV
-        echo "2gwifipsk=${{fromJson(github.event.inputs.customization).2gwifipsk}}" >> $GITHUB_ENV
-        echo "5gwifipsk=${{fromJson(github.event.inputs.customization).5gwifipsk}}" >> $GITHUB_ENV
+        echo "wifi2gssid=${{fromJson(github.event.inputs.customization).wifi2gssid}}" >> $GITHUB_ENV
+        echo "wifi5gssid=${{fromJson(github.event.inputs.customization).wifi5gssid}}" >> $GITHUB_ENV
+        echo "wifi2gpsk=${{fromJson(github.event.inputs.customization).wifi2gpsk}}" >> $GITHUB_ENV
+        echo "wifi5gpsk=${{fromJson(github.event.inputs.customization).wifi5gpsk}}" >> $GITHUB_ENV
     - name: Customization
       run: |
         cp -f bashScripts/setlanip.sh $WORK_PATH/trunk
@@ -315,7 +315,7 @@ jobs:
           bash ./setlanip.sh ${{ env.DEFAULT_FILE }} ./user/www/n56u_ribbon_fixed/Restarting.asp ${{ env.DICT_FILE }} ${{ env.lanip }}
         fi
         bash ./setaccount.sh ${{ env.signaccount }} ${{ env.signpassword }} ${{ env.DEFAULT_FILE }}
-        bash ./setwifi.sh ${{ env.2gwifissid }} ${{ env.5gwifissid }} ${{ env.2gwifipsk }} ${{ env.5gwifipsk }} ${{ env.DEFAULT_FILE }}
+        bash ./setwifi.sh ${{ env.wifi2gssid }} ${{ env.wifi5gssid }} ${{ env.wifi2gpsk }} ${{ env.wifi5gpsk }} ${{ env.DEFAULT_FILE }}
         cat ${{ env.DEFAULT_FILE }}
     - name: Apply rainbow themes
       if: env.rainbowui == 'y'
