@@ -316,7 +316,7 @@ jobs:
         fi
         bash ./setaccount.sh ${{ env.signaccount }} ${{ env.signpassword }} ${{ env.DEFAULT_FILE }}
         bash ./setwifi.sh ${{ env.wifi2gssid }} ${{ env.wifi5gssid }} ${{ env.wifi2gpsk }} ${{ env.wifi5gpsk }} ${{ env.DEFAULT_FILE }}
-        cat ${{ env.DEFAULT_FILE }}
+        #cat ${{ env.DEFAULT_FILE }}
     - name: Apply rainbow themes
       if: env.rainbowui == 'y'
       run: |
