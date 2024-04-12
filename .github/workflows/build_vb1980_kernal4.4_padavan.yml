@@ -275,7 +275,7 @@ jobs:
         fakeroot kmod cpio git python3-docutils gettext automake autopoint \
         texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
         libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin libev-dev \
-        libssl-dev liblzo2-dev libpam0g-dev
+        libssl-dev liblzo2-dev libpam0g-dev libevent-dev
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
