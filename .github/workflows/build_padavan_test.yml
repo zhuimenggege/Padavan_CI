@@ -269,7 +269,7 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone --depth=1 -b testupgrade $REPOSITORY_URL $WORK_PATH
+        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
         cd $WORK_PATH
         sed -i '/cp -f/d' Makefile
     - name: Extract toolchain
