@@ -294,7 +294,7 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+        git clone $REPOSITORY_URL $WORK_PATH
         cd $WORK_PATH
         git checkout ${{ github.event.inputs.checkoutver }}
         sed -i '/cp -f/d' Makefile
