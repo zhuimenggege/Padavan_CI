@@ -26,6 +26,7 @@ on:
         - JCG_Q20
         - JCG_Q20-PB
         - JCG_Q10Pro
+        - JCG_Q10Pro-PB
         - JCG_Q11Pro
         - JCG_Y2
         - JDCloud_1
@@ -161,7 +162,10 @@ jobs:
               "model": "JCG-Q20-PB"
             },
             "JCG_Q10Pro": {
-              "model": "JCG-Q20"
+              "model": "JCG-Q10Pro"
+            },
+            "JCG_Q10Pro-PB": {
+              "model": "JCG-Q10Pro-PB"
             },
             "JCG_Q11Pro": {
               "model": "JCG-Q11Pro"
