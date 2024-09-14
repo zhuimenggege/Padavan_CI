@@ -11,6 +11,7 @@ on:
         - 360_T6M-PB
         - Arcadyan_WE410443-TC
         - Asus_RT-AC85P
+        - C-Life_XG1
         - Diting_NEWIFI3
         - DLINK_DIR-878
         - DLINK_DIR-882
@@ -118,6 +119,9 @@ jobs:
             },
             "Asus_RT-AC85P": {
               "model": "RT-AC85P"
+            },
+            "C-Life_XG1": {
+              "model": "C-Life-XG1"
             },
             "Diting_NEWIFI3": {
               "model": "NEWIFI3"
