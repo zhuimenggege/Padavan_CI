@@ -11,6 +11,7 @@ on:
         - 360_T6M-PB
         - Arcadyan_WE410443-TC
         - Asus_RT-AC85P
+        - C-Life_XG1
         - Diting_NEWIFI3
         - DLINK_DIR-878
         - DLINK_DIR-882
@@ -62,7 +63,7 @@ on:
         - Youhua_WR330
         - ZTE_E8820V2
         - ZTE_E8820S
-        default: FCJ_G-AX1800-Black
+        default: C-Life_XG1
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -74,11 +75,11 @@ on:
       customization:
         description: 'json format string of customized configs'
         required: true
-        default: '{"rainbowui":"y","specializedlogo":"n","changebrandlogo":"n","lanip":"192.168.14.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
+        default: '{"rainbowui":"y","specializedlogo":"n","changebrandlogo":"n","lanip":"192.168.10.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20240820'
+        default: '20240918'
       uploadanon:
         type: boolean
         description: 'upload firmware to anonfiles'
@@ -117,6 +118,9 @@ jobs:
             },
             "Asus_RT-AC85P": {
               "model": "RT-AC85P"
+            },
+            "C-Life_XG1": {
+              "model": "C-Life-XG1"
             },
             "Diting_NEWIFI3": {
               "model": "NEWIFI3"
