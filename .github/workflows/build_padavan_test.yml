@@ -63,7 +63,8 @@ on:
         - Youhua_WR330
         - ZTE_E8820V2
         - ZTE_E8820S
-        default: C-Life_XG1
+        - ZTT_RX6000
+        default: ZTT_RX6000
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -79,7 +80,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20240918'
+        default: '20240927'
       uploadanon:
         type: boolean
         description: 'upload firmware to anonfiles'
@@ -274,6 +275,9 @@ jobs:
             },
             "ZTE_E8820S": {
               "model": "ZTE-E8820S"
+            },
+            "ZTT_RX6000": {
+              "model": "ZTT-RX6000"
             },
             ".*": {
               "model": "K2P"
