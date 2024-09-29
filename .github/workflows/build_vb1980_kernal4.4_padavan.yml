@@ -64,6 +64,7 @@ on:
         - Youhua_WR330
         - ZTE_E8820V2
         - ZTE_E8820S
+        - ZTT_RX6000
         default: SIM_AX1800T
       plugins:
         description: 'json format string of include configs'
@@ -278,6 +279,9 @@ jobs:
             },
             "ZTE_E8820S": {
               "model": "ZTE-E8820S"
+            },
+            "ZTT_RX6000": {
+              "model": "ZTT-RX6000"
             },
             ".*": {
               "model": "K2P"
