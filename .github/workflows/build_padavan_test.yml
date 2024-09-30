@@ -65,14 +65,6 @@ on:
         - ZTE_E8820S
         - ZTT_RX6000
         default: ZTT_RX6000
-      plugins:
-        description: 'json format string of include configs'
-        required: true
-        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"n","trojan":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"n","aldrive":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
-      usexraymin:
-        type: boolean
-        description: 'use streamlined xray'
-        default: false
       customization:
         description: 'json format string of customized configs'
         required: true
@@ -407,30 +399,30 @@ jobs:
         fi
     - name: Parse json string of include plugins
       run: |
-        echo "vpnsvr=${{fromJson(github.event.inputs.plugins).vpnsvr}}" >> $GITHUB_ENV
-        echo "vpncli=${{fromJson(github.event.inputs.plugins).vpncli}}" >> $GITHUB_ENV
-        echo "vpncmd=${{fromJson(github.event.inputs.plugins).vpncmd}}" >> $GITHUB_ENV
-        echo "ss=${{fromJson(github.event.inputs.plugins).ss}}" >> $GITHUB_ENV
-        echo "v2ray=${{fromJson(github.event.inputs.plugins).v2ray}}" >> $GITHUB_ENV
-        echo "xray=${{fromJson(github.event.inputs.plugins).xray}}" >> $GITHUB_ENV
-        echo "trojan=${{fromJson(github.event.inputs.plugins).trojan}}" >> $GITHUB_ENV
-        echo "ssobfs=${{fromJson(github.event.inputs.plugins).ssobfs}}" >> $GITHUB_ENV
-        echo "dnsforwarder=${{fromJson(github.event.inputs.plugins).dnsforwarder}}" >> $GITHUB_ENV
-        echo "adbyby=${{fromJson(github.event.inputs.plugins).adbyby}}" >> $GITHUB_ENV
-        echo "adguardhome=${{fromJson(github.event.inputs.plugins).adguardhome}}" >> $GITHUB_ENV
-        echo "smartdns=${{fromJson(github.event.inputs.plugins).smartdns}}" >> $GITHUB_ENV
-        echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
-        echo "zerotier=${{fromJson(github.event.inputs.plugins).zerotier}}" >> $GITHUB_ENV
-        echo "ddnsto=${{fromJson(github.event.inputs.plugins).ddnsto}}" >> $GITHUB_ENV
-        echo "wireguard=${{fromJson(github.event.inputs.plugins).wireguard}}" >> $GITHUB_ENV
-        echo "frpc=${{fromJson(github.event.inputs.plugins).frpc}}" >> $GITHUB_ENV
-        echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
-        echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
-        echo "mentohust=${{fromJson(github.event.inputs.plugins).mentohust}}" >> $GITHUB_ENV
-        echo "scutclient=${{fromJson(github.event.inputs.plugins).scutclient}}" >> $GITHUB_ENV
-        echo "njitclient=${{fromJson(github.event.inputs.plugins).njitclient}}" >> $GITHUB_ENV
-        echo "minieap=${{fromJson(github.event.inputs.plugins).minieap}}" >> $GITHUB_ENV
-        echo "dogcom=${{fromJson(github.event.inputs.plugins).dogcom}}" >> $GITHUB_ENV
+        echo "vpnsvr=n" >> $GITHUB_ENV
+        echo "vpncli=n" >> $GITHUB_ENV
+        echo "vpncmd=n" >> $GITHUB_ENV
+        echo "ss=n" >> $GITHUB_ENV
+        echo "v2ray=n" >> $GITHUB_ENV
+        echo "xray=n" >> $GITHUB_ENV
+        echo "trojan=n" >> $GITHUB_ENV
+        echo "ssobfs=n" >> $GITHUB_ENV
+        echo "dnsforwarder=n" >> $GITHUB_ENV
+        echo "adbyby=n" >> $GITHUB_ENV
+        echo "adguardhome=n" >> $GITHUB_ENV
+        echo "smartdns=n" >> $GITHUB_ENV
+        echo "aliddns=n" >> $GITHUB_ENV
+        echo "zerotier=n" >> $GITHUB_ENV
+        echo "ddnsto=n" >> $GITHUB_ENV
+        echo "wireguard=n" >> $GITHUB_ENV
+        echo "frpc=n" >> $GITHUB_ENV
+        echo "aldrive=n" >> $GITHUB_ENV
+        echo "sqm=n" >> $GITHUB_ENV
+        echo "mentohust=n" >> $GITHUB_ENV
+        echo "scutclient=n" >> $GITHUB_ENV
+        echo "njitclient=n" >> $GITHUB_ENV
+        echo "minieap=n" >> $GITHUB_ENV
+        echo "dogcom=n" >> $GITHUB_ENV
     - name: Custom config
       run: |
         cd $WORK_PATH/trunk
@@ -482,9 +474,6 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=${{env.trojan}}" >> .config #集成trojan执行文件(1.1M左右)
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=${{env.ssobfs}}" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
-        if [[ "${{ env.xray }}" == "y" && "${{ github.event.inputs.usexraymin }}" == "true" ]]; then
-        sed -i 's/+= xray/+= xraymin/g' $WORK_PATH/trunk/user/Makefile
-        fi
         #
         echo "CONFIG_FIRMWARE_INCLUDE_SRELAY=n" >> .config #可以不集成
         echo "CONFIG_FIRMWARE_INCLUDE_TUNSAFE=n" >> .config #tunsafe
