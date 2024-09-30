@@ -84,12 +84,21 @@ on:
       redledgpio:
         type: string
         default: 17
+      redledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_HIGH
       yellowledgpio:
         type: string
         default: 15
+      yellowledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_LOW
       greenledgpio:
         type: string
         default: 13
+      greenledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_LOW
 env:
   REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -350,8 +359,11 @@ jobs:
       run: |
         cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
         sed -i "21s/17/${{ github.event.inputs.redledgpio }}/" ./ztt-rx6000.dts
+        sed -i "21s/GPIO_ACTIVE_HIGH/${{ github.event.inputs.redledgpiohighlow }}/" ./ztt-rx6000.dts
         sed -i "26s/15/${{ github.event.inputs.yellowledgpio }}/" ./ztt-rx6000.dts
+        sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.yellowledgpiohighlow }}/" ./ztt-rx6000.dts
         sed -i "31s/13/${{ github.event.inputs.greenledgpio }}/" ./ztt-rx6000.dts
+        sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./ztt-rx6000.dts
     - name: Apply rainbow themes
       if: env.rainbowui == 'y'
       run: |
