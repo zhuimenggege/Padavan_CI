@@ -309,7 +309,7 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+        git clone --depth=1 -b dev $REPOSITORY_URL $WORK_PATH
         cd $WORK_PATH
         sed -i '/cp -f/d' Makefile
     - name: Extract toolchain
@@ -402,9 +402,9 @@ jobs:
         echo "vpnsvr=n" >> $GITHUB_ENV
         echo "vpncli=n" >> $GITHUB_ENV
         echo "vpncmd=n" >> $GITHUB_ENV
-        echo "ss=n" >> $GITHUB_ENV
+        echo "ss=y" >> $GITHUB_ENV
         echo "v2ray=n" >> $GITHUB_ENV
-        echo "xray=n" >> $GITHUB_ENV
+        echo "xray=y" >> $GITHUB_ENV
         echo "trojan=n" >> $GITHUB_ENV
         echo "ssobfs=n" >> $GITHUB_ENV
         echo "dnsforwarder=n" >> $GITHUB_ENV
