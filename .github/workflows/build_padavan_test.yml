@@ -64,33 +64,33 @@ on:
         - ZTE_E8820V2
         - ZTE_E8820S
         - ZTT_RX6000
-        default: ZTT_RX6000
+        default: SIM_AX1800T
       customization:
         description: 'json format string of customized configs'
         required: true
-        default: '{"rainbowui":"y","specializedlogo":"n","changebrandlogo":"n","lanip":"192.168.10.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
+        default: '{"rainbowui":"y","specializedlogo":"n","changebrandlogo":"n","lanip":"192.168.2.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20240927'
+        default: '8H7L6H'
       redledgpio:
         type: string
-        default: 17
+        default: 8
       redledgpiohighlow:
         type: string
         default: GPIO_ACTIVE_HIGH
       yellowledgpio:
         type: string
-        default: 15
+        default: 7
       yellowledgpiohighlow:
         type: string
         default: GPIO_ACTIVE_LOW
       greenledgpio:
         type: string
-        default: 13
+        default: 6
       greenledgpiohighlow:
         type: string
-        default: GPIO_ACTIVE_LOW
+        default: GPIO_ACTIVE_HIGH
 env:
   REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -349,13 +349,13 @@ jobs:
         #cat ${{ env.DEFAULT_FILE }}
     - name: Set Led GPIO
       run: |
-        #cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
-        #sed -i "21s/17/${{ github.event.inputs.redledgpio }}/" ./ztt-rx6000.dts
-        #sed -i "21s/GPIO_ACTIVE_HIGH/${{ github.event.inputs.redledgpiohighlow }}/" ./ztt-rx6000.dts
-        #sed -i "26s/15/${{ github.event.inputs.yellowledgpio }}/" ./ztt-rx6000.dts
-        #sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.yellowledgpiohighlow }}/" ./ztt-rx6000.dts
-        #sed -i "31s/13/${{ github.event.inputs.greenledgpio }}/" ./ztt-rx6000.dts
-        #sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./ztt-rx6000.dts
+        cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
+        sed -i "21s/7/${{ github.event.inputs.redledgpio }}/" ./sim-ax1800t.dts
+        sed -i "21s/GPIO_ACTIVE_LOW/${{ github.event.inputs.redledgpiohighlow }}/" ./sim-ax1800t.dts
+        sed -i "26s/8/${{ github.event.inputs.yellowledgpio }}/" ./sim-ax1800t.dts
+        sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.yellowledgpiohighlow }}/" ./sim-ax1800t.dts
+        sed -i "31s/6/${{ github.event.inputs.greenledgpio }}/" ./sim-ax1800t.dts
+        sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./sim-ax1800t.dts
     - name: Apply rainbow themes
       if: env.rainbowui == 'y'
       run: |
