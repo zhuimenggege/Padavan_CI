@@ -79,16 +79,16 @@ on:
       redledgpiohighlow:
         type: string
         default: GPIO_ACTIVE_HIGH
-      yellowledgpio:
-        type: string
-        default: 7
-      yellowledgpiohighlow:
-        type: string
-        default: GPIO_ACTIVE_LOW
       greenledgpio:
         type: string
-        default: 6
+        default: 7
       greenledgpiohighlow:
+        type: string
+        default: GPIO_ACTIVE_LOW
+      blueledgpio:
+        type: string
+        default: 6
+      blueledgpiohighlow:
         type: string
         default: GPIO_ACTIVE_HIGH
 env:
@@ -352,10 +352,10 @@ jobs:
         cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
         sed -i "21s/7/${{ github.event.inputs.redledgpio }}/" ./sim-ax1800t.dts
         sed -i "21s/GPIO_ACTIVE_LOW/${{ github.event.inputs.redledgpiohighlow }}/" ./sim-ax1800t.dts
-        sed -i "26s/8/${{ github.event.inputs.yellowledgpio }}/" ./sim-ax1800t.dts
-        sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.yellowledgpiohighlow }}/" ./sim-ax1800t.dts
-        sed -i "31s/6/${{ github.event.inputs.greenledgpio }}/" ./sim-ax1800t.dts
-        sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./sim-ax1800t.dts
+        sed -i "26s/8/${{ github.event.inputs.greenledgpio }}/" ./sim-ax1800t.dts
+        sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./sim-ax1800t.dts
+        sed -i "31s/6/${{ github.event.inputs.blueledgpio }}/" ./sim-ax1800t.dts
+        sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.blueledgpiohighlow }}/" ./sim-ax1800t.dts
     - name: Apply rainbow themes
       if: env.rainbowui == 'y'
       run: |
@@ -524,7 +524,7 @@ jobs:
         mkdir -p $FIRMWARE_PATH/
         cd $WORK_PATH/trunk/images
         for firmwarefile in $(ls *.trx)
-        do sudo mv $firmwarefile $FIRMWARE_PATH/${FIRMWARE_DATEPREFIX}"_"${FIRMWARE_AUTHOR}"_"${{ env.model }}"_"${rainbow_Prefix}"kernal4.4.trx"
+        do sudo mv $firmwarefile $FIRMWARE_PATH/${FIRMWARE_DATEPREFIX}"_"${{ env.model }}"_"${{ github.event.inputs.firmwarever }}".trx"
         done
         cd $FIRMWARE_PATH
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
