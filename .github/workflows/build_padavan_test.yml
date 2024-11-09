@@ -22,6 +22,7 @@ on:
         - H3C_TX1801
         - H3C_TX1806
         - Hair_HAR-20S2U1
+        - HBD_WRL18M4GD
         - JCG_836PRO
         - JCG_AC860M
         - JCG_Q20
@@ -64,7 +65,7 @@ on:
         - ZTE_E8820V2
         - ZTE_E8820S
         - ZTT_RX6000
-        default: SIM_AX1800T
+        default: HBD_WRL18M4GD
       customization:
         description: 'json format string of customized configs'
         required: true
@@ -158,6 +159,9 @@ jobs:
             },
             "Hair_HAR-20S2U1": {
               "model": "HAR-20S2U1"
+            },
+            "HBD_WRL18M4GD": {
+              "model": "WRL18M4GD"
             },
             "JCG_836PRO": {
               "model": "JCG-836PRO"
@@ -350,12 +354,12 @@ jobs:
     - name: Set Led GPIO
       run: |
         cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
-        sed -i "21s/7/${{ github.event.inputs.redledgpio }}/" ./sim-ax1800t.dts
-        sed -i "21s/GPIO_ACTIVE_LOW/${{ github.event.inputs.redledgpiohighlow }}/" ./sim-ax1800t.dts
-        sed -i "26s/8/${{ github.event.inputs.greenledgpio }}/" ./sim-ax1800t.dts
-        sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./sim-ax1800t.dts
+        sed -i "21s/8/${{ github.event.inputs.redledgpio }}/" ./sim-ax1800t.dts
+        sed -i "21s/GPIO_ACTIVE_LOW/${{ github.event.inputs.redledgpiohighlow }}/" ./wrl18m4gd.dts
+        sed -i "26s/7/${{ github.event.inputs.greenledgpio }}/" ./sim-ax1800t.dts
+        sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.greenledgpiohighlow }}/" ./wrl18m4gd.dts
         sed -i "31s/6/${{ github.event.inputs.blueledgpio }}/" ./sim-ax1800t.dts
-        sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.blueledgpiohighlow }}/" ./sim-ax1800t.dts
+        sed -i "31s/GPIO_ACTIVE_LOW/${{ github.event.inputs.blueledgpiohighlow }}/" ./wrl18m4gd.dts
     - name: Apply rainbow themes
       if: env.rainbowui == 'y'
       run: |
