@@ -1,4 +1,4 @@
-name: Build tsl0922's kernal4.4 Padavan
+name: Build tsl0922
 
 on:
   workflow_dispatch:
