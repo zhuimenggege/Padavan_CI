@@ -1,9 +1,9 @@
-name: build padavan toolchain
+name: build 4.4测试
 
 on: 
   workflow_dispatch:
 env:
-  REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
+  REPOSITORY_URL: https://github.com/zhuimenggege/padavan-1
   WORK_PATH: /opt/padavan-4.4
 jobs:
   build:
