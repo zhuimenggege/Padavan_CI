@@ -185,6 +185,7 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
+        ./configure CFLAGS="-I/trunk/linux-4.4.x/tools/perf/util" LDFLAGS="-L/trunk/linux-4.4.x/tools/perf/util" --enable-tirpc
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
         cd $WORK_PATH
         sed -i '/cp -f/d' Makefile
