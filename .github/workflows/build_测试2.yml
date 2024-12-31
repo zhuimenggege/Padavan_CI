@@ -176,8 +176,6 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo apt-get update
-        sudo apt-get install -y libtirpc-dev
-        sudo apt-get install -y libnsl-dev
         sudo apt install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
         fakeroot kmod cpio git python3-docutils gettext automake autopoint \
         texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
@@ -376,7 +374,6 @@ jobs:
         cd $WORK_PATH
         sudo make ${{ env.model }} TOOLCHAIN=mipsel-linux-musl
         echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
-        ./configure CFLAGS="-I/usr/include" LDFLAGS="-L/usr/lib" --enable-tirpc
     - name: Organize firmware files
       id: organize
       run: |
