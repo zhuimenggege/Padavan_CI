@@ -46,7 +46,7 @@ on:
         required: true
         default: '20240209'
 env:
-  REPOSITORY_URL: https://github.com/zhuimenggege/padavan-1.git
+  REPOSITORY_URL: https://github.com/zhuimenggege/padavan.git
   WORK_PATH: /opt/padavan-4.4
   TIME_ZONE: Asia/Shanghai
   FIRMWARE_DATEPREFIX: $(date +"%Y%m%d")
