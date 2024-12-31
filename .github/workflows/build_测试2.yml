@@ -376,7 +376,7 @@ jobs:
         cd $WORK_PATH
         sudo make ${{ env.model }} TOOLCHAIN=mipsel-linux-musl
         echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
-        ./configure CFLAGS="-I/trunk/linux-4.4.x/tools/perf/util" LDFLAGS="-L/trunk/linux-4.4.x/tools/perf/util" --enable-tirpc
+        ./configure CFLAGS="-I/usr/include" LDFLAGS="-L/usr/lib" --enable-tirpc
     - name: Organize firmware files
       id: organize
       run: |
