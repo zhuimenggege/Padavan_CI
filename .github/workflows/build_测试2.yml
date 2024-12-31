@@ -40,7 +40,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"dropbear":"y","cod":"""ttyd":"y","antfs":"y","ipset":"y","nfsd":"y","nfsc":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria":"n","ariaweb":"n"}'
+        default: '{"dropbear":"y","code":"y""ttyd":"y","antfs":"y","ipset":"y","nfsd":"y","nfsc":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria":"n","ariaweb":"n"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -189,7 +189,7 @@ jobs:
     - name: Parse json string of include plugins
       run: |
         echo "dropbear=${{fromJson(github.event.inputs.plugins).dropbear}}" >> $GITHUB_ENV
-        echo "cod=${{fromJson(github.event.inputs.plugins).cod}}" >> $GITHUB_ENV
+        echo "cod=${{fromJson(github.event.inputs.plugins).code}}" >> $GITHUB_ENV
         echo "ttyd=${{fromJson(github.event.inputs.plugins).ttyd}}" >> $GITHUB_ENV
         echo "antfs=${{fromJson(github.event.inputs.plugins).antfs}}" >> $GITHUB_ENV
         echo "ipset=${{fromJson(github.event.inputs.plugins).ipset}}" >> $GITHUB_ENV
@@ -332,7 +332,7 @@ jobs:
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
         ######################################################################
         echo "CONFIG_FIRMWARE_INCLUDE_DROPBEAR=${{env.dropbear}}" >> .config #SSH 服务器
-        echo "CONFIG_FIRMWARE_INCLUDE_DROPBEAR_FAST_CODE=${{env.cod}}" >> .config #加密服务
+        echo "CONFIG_FIRMWARE_INCLUDE_DROPBEAR_FAST_CODE=${{env.code}}" >> .config #加密服务
         echo "CONFIG_FIRMWARE_INCLUDE_TTYD=${{env.ttyd}}" >> .config #ttyd 服务器
         ##usb相关
         echo "CONFIG_FIRMWARE_INCLUDE_ANTFS=${{env.antfs}}" >> .config #ANTFS文件系统
