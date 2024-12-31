@@ -40,7 +40,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"dropbear":"y","ttyd":"y","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"n","singbox":"n","naiveproxy":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"y","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"y","aldrive":"n","sqm":"n","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n","transmission":"n","aria":"n","ariaweb":"n"}'
+        default: n'{"dropbear":"y","ttyd":"y","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"n","singbox":"n","naiveproxy":"n","ssobfs":"n","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"y","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"n","aldrive":"n","sqm":"n","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n","transmission":"n","aria":"y","ariaweb":"y"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
