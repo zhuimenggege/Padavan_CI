@@ -40,7 +40,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"dropbear":"y","cod":"y""ttyd":"y","antfs":"y","ipset":"y","nfsd":"y","nfsc":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria":"n","ariaweb":"n"}'
+        default: '{"dropbear":"y","cod":"""ttyd":"y","antfs":"y","ipset":"y","nfsd":"y","nfsc":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria":"n","ariaweb":"n"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
