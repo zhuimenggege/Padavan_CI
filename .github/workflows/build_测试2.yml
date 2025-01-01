@@ -40,7 +40,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"openssh":"y","nano":"y","ttyd":"y","antfs":"y","ipset":"y","nfsd":"n","nfsc":"n","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria2":"y","ariaweb":"y"}'
+        default: '{"openssh":"y","nano":"y","ttyd":"y","antfs":"y","ipset":"y","ec":"y","exe":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria2":"y","ariaweb":"y"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -194,8 +194,8 @@ jobs:
         echo "ttyd=${{fromJson(github.event.inputs.plugins).ttyd}}" >> $GITHUB_ENV
         echo "antfs=${{fromJson(github.event.inputs.plugins).antfs}}" >> $GITHUB_ENV
         echo "ipset=${{fromJson(github.event.inputs.plugins).ipset}}" >> $GITHUB_ENV
-        echo "nfsd=${{fromJson(github.event.inputs.plugins).nfsd}}" >> $GITHUB_ENV
-        echo "nfsc=${{fromJson(github.event.inputs.plugins).nfsc}}" >> $GITHUB_ENV
+        echo "ec=${{fromJson(github.event.inputs.plugins).ec}}" >> $GITHUB_ENV
+        echo "exe=${{fromJson(github.event.inputs.plugins).exe}}" >> $GITHUB_ENV
         echo "cifs=${{fromJson(github.event.inputs.plugins).cifs}}" >> $GITHUB_ENV
         echo "hdparm=${{fromJson(github.event.inputs.plugins).hdparm}}" >> $GITHUB_ENV
         echo "parted=${{fromJson(github.event.inputs.plugins).parted}}" >> $GITHUB_ENV
@@ -359,8 +359,8 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL=${{env.ariaweb}}" >> .config
         echo "CONFIG_FIRMWARE_INCLUDE_ARIA=${{env.aria2}}" >> .config
         #校园相关
-        #echo "CONFIG_FIRMWARE_INCLUDE_MINIEAP=${{env.minieap}}" >> .config
-        #echo "CONFIG_FIRMWARE_INCLUDE_DOGCOM=${{env.dogcom}}" >> .config
+        #echo "CONFIG_FIRMWARE_INCLUDE_OPENSSL_EC=${{env.ec}}" >> .config
+        #echo "CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=${{env.exe}}" >> .config
         #校园网相关结束
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
