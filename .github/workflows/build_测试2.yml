@@ -40,7 +40,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"openssh":"y","nano":"y","ttyd":"y","antfs":"y","ipset":"y","ec":"y","exe":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria2":"y","ariaweb":"y"}'
+        default: '{"openssh":"y","nano":"y","peap":"y","ttyd":"y","antfs":"y","ipset":"y","ec":"y","exe":"y","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria2":"n","ariaweb":"n"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -209,7 +209,7 @@ jobs:
         echo "smartdns=${{fromJson(github.event.inputs.plugins).smartdns}}" >> $GITHUB_ENV
         echo "frpc=${{fromJson(github.event.inputs.plugins).frpc}}" >> $GITHUB_ENV
         echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
-        echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
+        echo "peap=${{fromJson(github.event.inputs.plugins).peap}}" >> $GITHUB_ENV
         echo "mentohust=${{fromJson(github.event.inputs.plugins).mentohust}}" >> $GITHUB_ENV
         echo "scutclient=${{fromJson(github.event.inputs.plugins).scutclient}}" >> $GITHUB_ENV
         echo "njitclient=${{fromJson(github.event.inputs.plugins).njitclient}}" >> $GITHUB_ENV
@@ -360,6 +360,8 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_ARIA=${{env.aria2}}" >> .config
         #校园相关
         #echo "CONFIG_FIRMWARE_INCLUDE_OPENSSL_EC=${{env.ec}}" >> .config
+        #echo "CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=${{env.exe}}" >> .config
+        #echo "CONFIG_FIRMWARE_INCLUDE_EAP_PEAP=${{env.peap}}" >> .config
         #echo "CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=${{env.exe}}" >> .config
         #校园网相关结束
         #########################################################################################
