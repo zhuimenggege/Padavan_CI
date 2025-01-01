@@ -40,7 +40,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"openssh":"y","nano":"y","ttyd":"y","antfs":"y","ipset":"y","nfsd":"n","nfsc":"n","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria2":"n","ariaweb":"n"}'
+        default: '{"openssh":"y","nano":"y","ttyd":"y","antfs":"y","ipset":"y","nfsd":"n","nfsc":"n","cifs":"y","hdparm":"y","parted":"y","smbd":"y","ftpd":"y","peap":"y","https":"y","curl":"y","sqm":"y","ltte":"y","lrzsz":"y","smartdns":"y","aria2":"y","ariaweb":"y"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -215,7 +215,7 @@ jobs:
         echo "minieap=${{fromJson(github.event.inputs.plugins).minieap}}" >> $GITHUB_ENV
         echo "dogcom=${{fromJson(github.event.inputs.plugins).dogcom}}" >> $GITHUB_ENV
         echo "transmission=${{fromJson(github.event.inputs.plugins).transmission}}" >> $GITHUB_ENV
-        echo "aria=${{fromJson(github.event.inputs.plugins).aria2}}" >> $GITHUB_ENV
+        echo "aria2=${{fromJson(github.event.inputs.plugins).aria2}}" >> $GITHUB_ENV
         echo "ariaweb=${{fromJson(github.event.inputs.plugins).ariaweb}}" >> $GITHUB_ENV
     - name: Custom config
       run: |
